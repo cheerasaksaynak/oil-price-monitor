@@ -1,0 +1,403 @@
+<!DOCTYPE html>
+
+<html lang="th"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Price History &amp; Trends | The Fluid Authority</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700;800;900&amp;family=Inter:wght@400;500;600&amp;family=IBM+Plex+Sans+Thai:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "tertiary": "#513b00",
+                        "surface": "#f8f9fa",
+                        "primary-fixed": "#d6e3ff",
+                        "surface-container-lowest": "#ffffff",
+                        "tertiary-fixed-dim": "#fabd00",
+                        "inverse-primary": "#a9c7ff",
+                        "primary-container": "#0054a6",
+                        "on-tertiary": "#ffffff",
+                        "primary": "#003d7c",
+                        "surface-dim": "#d9dadb",
+                        "secondary-container": "#cfe6f2",
+                        "error": "#ba1a1a",
+                        "inverse-on-surface": "#f0f1f2",
+                        "surface-container-highest": "#e1e3e4",
+                        "on-surface-variant": "#424751",
+                        "on-secondary": "#ffffff",
+                        "on-primary-fixed-variant": "#00468c",
+                        "surface-bright": "#f8f9fa",
+                        "primary-fixed-dim": "#a9c7ff",
+                        "surface-variant": "#e1e3e4",
+                        "on-tertiary-container": "#ffc107",
+                        "on-tertiary-fixed-variant": "#5b4300",
+                        "outline": "#727783",
+                        "on-primary-fixed": "#001b3d",
+                        "on-secondary-fixed-variant": "#354a53",
+                        "surface-tint": "#185eb0",
+                        "surface-container-low": "#f3f4f5",
+                        "on-surface": "#191c1d",
+                        "error-container": "#ffdad6",
+                        "on-primary": "#ffffff",
+                        "outline-variant": "#c2c6d3",
+                        "surface-container": "#edeeef",
+                        "background": "#f8f9fa",
+                        "on-primary-container": "#afcbff",
+                        "tertiary-container": "#6d5100",
+                        "secondary-fixed-dim": "#b4cad6",
+                        "secondary": "#4c616c",
+                        "inverse-surface": "#2e3132",
+                        "on-error": "#ffffff",
+                        "on-error-container": "#93000a",
+                        "on-background": "#191c1d",
+                        "on-tertiary-fixed": "#261a00",
+                        "secondary-fixed": "#cfe6f2",
+                        "tertiary-fixed": "#ffdf9e",
+                        "on-secondary-container": "#526772",
+                        "surface-container-high": "#e7e8e9",
+                        "on-secondary-fixed": "#071e27"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.125rem",
+                        "lg": "0.25rem",
+                        "xl": "0.5rem",
+                        "full": "0.75rem"
+                    },
+                    "fontFamily": {
+                        "headline": ["Be Vietnam Pro", "IBM Plex Sans Thai"],
+                        "body": ["Inter", "IBM Plex Sans Thai"],
+                        "label": ["Inter", "IBM Plex Sans Thai"]
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        body {
+            font-family: 'Inter', 'IBM Plex Sans Thai', sans-serif;
+            background-color: #f8f9fa;
+        }
+        .editorial-asymmetry {
+            grid-template-columns: 1fr 350px;
+        }
+        .glass-nav {
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(20px);
+        }
+    </style>
+</head>
+<body class="text-on-surface">
+<!-- SideNavBar Component -->
+<aside class="h-screen w-64 fixed left-0 top-0 bg-slate-100 dark:bg-slate-900 flex flex-col p-4 gap-2 z-40">
+<div class="mb-8 px-2">
+<h1 class="text-lg font-black uppercase text-blue-900 dark:text-blue-400 tracking-tighter">The Fluid Authority</h1>
+<p class="text-xs text-slate-500 font-medium">Editorial Analyst</p>
+</div>
+<nav class="flex flex-col gap-1">
+<a class="flex items-center gap-3 px-3 py-2 text-slate-600 dark:text-slate-400 hover:text-blue-800 hover:bg-slate-200 dark:hover:bg-slate-800 transition-all duration-300 rounded-lg" href="#">
+<span class="material-symbols-outlined" data-icon="dashboard">dashboard</span>
+<span class="font-medium">Dashboard</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 bg-white dark:bg-slate-800 text-blue-900 dark:text-blue-300 font-semibold rounded-lg shadow-sm" href="#">
+<span class="material-symbols-outlined" data-icon="history">history</span>
+<span class="font-medium">Price History</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 text-slate-600 dark:text-slate-400 hover:text-blue-800 hover:bg-slate-200 dark:hover:bg-slate-800 transition-all duration-300 rounded-lg" href="#">
+<span class="material-symbols-outlined" data-icon="trending_up">trending_up</span>
+<span class="font-medium">Trends</span>
+</a>
+</nav>
+<div class="mt-auto p-3 flex items-center gap-3 bg-surface-container-low rounded-xl">
+<div class="w-10 h-10 rounded-full bg-primary-fixed flex items-center justify-center overflow-hidden">
+<img alt="User Profile" data-alt="close-up portrait of a professional analyst in a modern office setting with soft natural lighting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuA0WZmDhFKgmIJSdbudxPuc9Uzsx1_dvyjxQO4Gt_rs_Y--OOHNJnNPqQJzW0XIl0Ygt2z1bmzSJRLqG2KtNbdyKec62mI0QiqggZA4nf9T4ejY31GtIgjaHVf5m2KHZaS5qcpUFlEO93aVbI0KtWRBeGfk2k8Ge1dxFpgu5PIYvdHhl5-bKhgBaG0MzDsdRn6ko4yM3uftPHXu2fP-MGwQH1Ll5bQ4d7wWGWeqGFRfrgOscFlF2-iJ_fM9_o9lV-KB1WJev4fIyjKP"/>
+</div>
+<div>
+<p class="text-sm font-bold text-on-surface">Admin Access</p>
+<p class="text-[10px] text-outline">Verified Station</p>
+</div>
+</div>
+</aside>
+<!-- Main Content Canvas -->
+<main class="ml-64 min-h-screen">
+<!-- TopNavBar Component -->
+<header class="fixed top-0 right-0 left-64 z-50 bg-white/80 dark:bg-slate-900/80 backdrop-blur-md flex items-center justify-between px-8 py-3 w-auto">
+<div class="flex items-center gap-4 flex-1">
+<div class="relative w-full max-w-md">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-outline text-sm" data-icon="search">search</span>
+<input class="w-full pl-10 pr-4 py-2 bg-surface-container rounded-full text-sm focus:outline-none focus:ring-2 focus:ring-primary/20 border-none" placeholder="ค้นหาข้อมูลราคาย้อนหลัง..." type="text"/>
+</div>
+</div>
+<div class="flex items-center gap-6">
+<div class="flex gap-4">
+<span class="material-symbols-outlined text-blue-900 cursor-pointer" data-icon="calendar_today">calendar_today</span>
+<span class="material-symbols-outlined text-blue-900 cursor-pointer" data-icon="schedule">schedule</span>
+</div>
+</div>
+</header>
+<div class="pt-20 px-8 pb-12">
+<!-- Hero Header Section -->
+<section class="mb-10">
+<div class="flex justify-between items-end">
+<div>
+<h2 class="text-4xl font-black text-on-surface tracking-tighter font-headline mb-2">ประวัติราคาย้อนหลัง</h2>
+<p class="text-on-surface-variant font-medium">Historical pricing data and market analytics for Thai fuel stations.</p>
+</div>
+<div class="flex gap-2">
+<button class="bg-surface-container-high px-4 py-2 rounded-lg text-sm font-semibold flex items-center gap-2 hover:bg-surface-container-highest transition-colors">
+<span class="material-symbols-outlined text-sm" data-icon="download">download</span>
+                            ส่งออกข้อมูล (CSV)
+                        </button>
+</div>
+</div>
+</section>
+<!-- Editorial Layout: Asymmetry Grid -->
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
+<!-- Main Data View (Col 8) -->
+<div class="lg:col-span-9 space-y-8">
+<!-- Chart Section: Visual Depth -->
+<div class="bg-surface-container-lowest rounded-xl p-8 shadow-sm overflow-hidden relative group">
+<div class="flex justify-between items-start mb-8">
+<div>
+<h3 class="text-lg font-bold text-primary mb-1">แนวโน้มราคา 6 เดือนล่าสุด</h3>
+<p class="text-xs text-outline">เปรียบเทียบราคาเฉลี่ยต่อเดือน (บาท/ลิตร)</p>
+</div>
+<div class="flex gap-4">
+<div class="flex items-center gap-2">
+<span class="w-3 h-3 rounded-full bg-primary"></span>
+<span class="text-[10px] font-bold uppercase">Gasohol 95</span>
+</div>
+<div class="flex items-center gap-2">
+<span class="w-3 h-3 rounded-full bg-error"></span>
+<span class="text-[10px] font-bold uppercase">Diesel B7</span>
+</div>
+</div>
+</div>
+<!-- Mock Chart Representation with Tonal Gradients -->
+<div class="h-64 flex items-end justify-between gap-4 relative">
+<div class="absolute inset-0 flex flex-col justify-between pointer-events-none">
+<div class="border-t border-outline-variant/20 w-full h-px"></div>
+<div class="border-t border-outline-variant/20 w-full h-px"></div>
+<div class="border-t border-outline-variant/20 w-full h-px"></div>
+<div class="border-t border-outline-variant/20 w-full h-px"></div>
+</div>
+<!-- Bar Charts with Tonal Layering -->
+<div class="flex-1 flex flex-col items-center gap-1 group/bar">
+<div class="w-full flex items-end justify-center gap-1 h-full">
+<div class="w-4 bg-primary-container/40 rounded-t-sm h-[60%] hover:bg-primary transition-all duration-300"></div>
+<div class="w-4 bg-error/40 rounded-t-sm h-[50%] hover:bg-error transition-all duration-300"></div>
+</div>
+<span class="text-[10px] font-bold text-outline">ม.ค.</span>
+</div>
+<div class="flex-1 flex flex-col items-center gap-1">
+<div class="w-full flex items-end justify-center gap-1 h-full">
+<div class="w-4 bg-primary-container/40 rounded-t-sm h-[75%]"></div>
+<div class="w-4 bg-error/40 rounded-t-sm h-[55%]"></div>
+</div>
+<span class="text-[10px] font-bold text-outline">ก.พ.</span>
+</div>
+<div class="flex-1 flex flex-col items-center gap-1">
+<div class="w-full flex items-end justify-center gap-1 h-full">
+<div class="w-4 bg-primary-container/40 rounded-t-sm h-[65%]"></div>
+<div class="w-4 bg-error/40 rounded-t-sm h-[58%]"></div>
+</div>
+<span class="text-[10px] font-bold text-outline">มี.ค.</span>
+</div>
+<div class="flex-1 flex flex-col items-center gap-1">
+<div class="w-full flex items-end justify-center gap-1 h-full">
+<div class="w-4 bg-primary-container/40 rounded-t-sm h-[85%]"></div>
+<div class="w-4 bg-error/40 rounded-t-sm h-[62%]"></div>
+</div>
+<span class="text-[10px] font-bold text-outline">เม.ย.</span>
+</div>
+<div class="flex-1 flex flex-col items-center gap-1">
+<div class="w-full flex items-end justify-center gap-1 h-full">
+<div class="w-4 bg-primary-container/40 rounded-t-sm h-[90%]"></div>
+<div class="w-4 bg-error/40 rounded-t-sm h-[70%]"></div>
+</div>
+<span class="text-[10px] font-bold text-outline">พ.ค.</span>
+</div>
+<div class="flex-1 flex flex-col items-center gap-1">
+<div class="w-full flex items-end justify-center gap-1 h-full">
+<div class="w-4 bg-primary rounded-t-sm h-[95%]"></div>
+<div class="w-4 bg-error rounded-t-sm h-[75%]"></div>
+</div>
+<span class="text-[10px] font-bold text-outline">มิ.ย.</span>
+</div>
+</div>
+</div>
+<!-- Price Table Section -->
+<div class="bg-surface-container-lowest rounded-xl shadow-sm">
+<div class="px-6 py-5 flex justify-between items-center bg-surface-container-low/30 rounded-t-xl">
+<h3 class="font-bold text-on-surface">ตารางราคาย้อนหลัง</h3>
+<div class="flex items-center gap-2">
+<span class="text-xs text-outline">แสดง 10 จาก 150 รายการ</span>
+</div>
+</div>
+<div class="overflow-x-auto">
+<table class="w-full text-left border-collapse">
+<thead>
+<tr class="bg-surface-container-low/50">
+<th class="px-6 py-4 text-xs font-black text-on-surface-variant uppercase tracking-widest">วันที่</th>
+<th class="px-6 py-4 text-xs font-black text-on-surface-variant uppercase tracking-widest">ผู้ให้บริการ</th>
+<th class="px-6 py-4 text-xs font-black text-on-surface-variant uppercase tracking-widest">ประเภทเชื้อเพลิง</th>
+<th class="px-6 py-4 text-xs font-black text-on-surface-variant uppercase tracking-widest text-right">ราคา (บาท/ลิตร)</th>
+<th class="px-6 py-4 text-xs font-black text-on-surface-variant uppercase tracking-widest text-right">เปลี่ยนแปลง</th>
+</tr>
+</thead>
+<tbody class="divide-y-0">
+<tr class="hover:bg-surface-container-low transition-colors group">
+<td class="px-6 py-4 text-sm font-medium">15 มิ.ย. 2567</td>
+<td class="px-6 py-4 text-sm">PTT Station</td>
+<td class="px-6 py-4">
+<span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-[10px] font-bold bg-tertiary-fixed text-on-tertiary-fixed-variant">GASOHOL 95</span>
+</td>
+<td class="px-6 py-4 text-sm font-black text-right">38.45</td>
+<td class="px-6 py-4 text-right">
+<span class="text-xs font-bold text-error flex items-center justify-end gap-1">
+<span class="material-symbols-outlined text-xs" data-icon="arrow_upward">arrow_upward</span>
+                                                +0.40
+                                            </span>
+</td>
+</tr>
+<tr class="hover:bg-surface-container-low transition-colors">
+<td class="px-6 py-4 text-sm font-medium">14 มิ.ย. 2567</td>
+<td class="px-6 py-4 text-sm">Bangchak</td>
+<td class="px-6 py-4">
+<span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-[10px] font-bold bg-error text-on-error">DIESEL B7</span>
+</td>
+<td class="px-6 py-4 text-sm font-black text-right">32.94</td>
+<td class="px-6 py-4 text-right">
+<span class="text-xs font-bold text-outline">0.00</span>
+</td>
+</tr>
+<tr class="hover:bg-surface-container-low transition-colors">
+<td class="px-6 py-4 text-sm font-medium">12 มิ.ย. 2567</td>
+<td class="px-6 py-4 text-sm">PTT Station</td>
+<td class="px-6 py-4">
+<span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-[10px] font-bold bg-on-tertiary-container text-on-tertiary">E20</span>
+</td>
+<td class="px-6 py-4 text-sm font-black text-right">36.34</td>
+<td class="px-6 py-4 text-right">
+<span class="text-xs font-bold text-primary flex items-center justify-end gap-1">
+<span class="material-symbols-outlined text-xs" data-icon="arrow_downward">arrow_downward</span>
+                                                -0.20
+                                            </span>
+</td>
+</tr>
+<tr class="hover:bg-surface-container-low transition-colors">
+<td class="px-6 py-4 text-sm font-medium">10 มิ.ย. 2567</td>
+<td class="px-6 py-4 text-sm">Bangchak</td>
+<td class="px-6 py-4">
+<span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-[10px] font-bold bg-tertiary-fixed text-on-tertiary-fixed-variant">GASOHOL 95</span>
+</td>
+<td class="px-6 py-4 text-sm font-black text-right">38.05</td>
+<td class="px-6 py-4 text-right">
+<span class="text-xs font-bold text-error flex items-center justify-end gap-1">
+<span class="material-symbols-outlined text-xs" data-icon="arrow_upward">arrow_upward</span>
+                                                +0.60
+                                            </span>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="px-6 py-4 border-t border-outline-variant/10 flex justify-center">
+<button class="text-primary text-xs font-bold hover:underline">ดูข้อมูลเพิ่มเติม</button>
+</div>
+</div>
+</div>
+<!-- Filters Sidebar (Col 3) -->
+<aside class="lg:col-span-3 space-y-6">
+<div class="bg-surface-container-low p-6 rounded-xl">
+<h4 class="text-sm font-black uppercase text-on-surface tracking-widest mb-6">ตัวกรองข้อมูล</h4>
+<!-- Fuel Type Filter -->
+<div class="mb-8">
+<label class="text-xs font-bold text-outline block mb-3 uppercase">ประเภทเชื้อเพลิง</label>
+<div class="space-y-2">
+<label class="flex items-center gap-3 cursor-pointer group">
+<input checked="" class="rounded-sm border-outline-variant text-primary focus:ring-primary h-4 w-4" type="checkbox"/>
+<span class="text-sm font-medium group-hover:text-primary transition-colors">Gasohol 95</span>
+</label>
+<label class="flex items-center gap-3 cursor-pointer group">
+<input checked="" class="rounded-sm border-outline-variant text-primary focus:ring-primary h-4 w-4" type="checkbox"/>
+<span class="text-sm font-medium group-hover:text-primary transition-colors">Gasohol 91</span>
+</label>
+<label class="flex items-center gap-3 cursor-pointer group">
+<input class="rounded-sm border-outline-variant text-primary focus:ring-primary h-4 w-4" type="checkbox"/>
+<span class="text-sm font-medium group-hover:text-primary transition-colors">E20</span>
+</label>
+<label class="flex items-center gap-3 cursor-pointer group">
+<input checked="" class="rounded-sm border-outline-variant text-primary focus:ring-primary h-4 w-4" type="checkbox"/>
+<span class="text-sm font-medium group-hover:text-primary transition-colors">Diesel B7</span>
+</label>
+</div>
+</div>
+<!-- Provider Filter -->
+<div class="mb-8">
+<label class="text-xs font-bold text-outline block mb-3 uppercase">ผู้ให้บริการ</label>
+<select class="w-full bg-surface-container-lowest border border-outline-variant/30 rounded-lg py-2 px-3 text-sm focus:ring-2 focus:ring-primary/20 outline-none">
+<option>ทุกผู้ให้บริการ</option>
+<option>PTT Station</option>
+<option>Bangchak</option>
+<option>Shell</option>
+<option>Esso</option>
+</select>
+</div>
+<!-- Date Range -->
+<div class="mb-8">
+<label class="text-xs font-bold text-outline block mb-3 uppercase">ช่วงเวลา</label>
+<div class="space-y-3">
+<div>
+<span class="text-[10px] text-outline font-bold">จากวันที่</span>
+<input class="w-full mt-1 bg-surface-container-lowest border border-outline-variant/30 rounded-lg py-2 px-3 text-sm outline-none" type="date" value="2024-01-01"/>
+</div>
+<div>
+<span class="text-[10px] text-outline font-bold">ถึงวันที่</span>
+<input class="w-full mt-1 bg-surface-container-lowest border border-outline-variant/30 rounded-lg py-2 px-3 text-sm outline-none" type="date" value="2024-06-15"/>
+</div>
+</div>
+</div>
+<button class="w-full py-3 bg-primary text-white rounded-lg font-bold text-sm hover:bg-primary-container transition-all shadow-sm">
+                            ใช้ตัวกรองข้อมูล
+                        </button>
+</div>
+<!-- Market Insight Card -->
+<div class="bg-primary p-6 rounded-xl text-white relative overflow-hidden">
+<div class="relative z-10">
+<h4 class="text-xs font-bold uppercase tracking-widest opacity-70 mb-2">บทวิเคราะห์ประจำสัปดาห์</h4>
+<p class="text-sm font-medium leading-relaxed mb-4">แนวโน้มราคาน้ำมันโลกมีทิศทางขาขึ้น คาดการณ์ราคาน้ำมันในประเทศอาจมีการปรับตัวสูงขึ้นในอีก 48 ชม. ข้างหน้า</p>
+<a class="text-xs font-bold underline underline-offset-4" href="#">อ่านบทวิเคราะห์ฉบับเต็ม</a>
+</div>
+<div class="absolute -right-4 -bottom-4 opacity-10">
+<span class="material-symbols-outlined text-8xl" data-icon="insights">insights</span>
+</div>
+</div>
+</aside>
+</div>
+</div>
+<!-- Footer Component -->
+<footer class="w-full mt-auto py-8 bg-slate-100 dark:bg-slate-950">
+<div class="max-w-7xl mx-auto px-8 grid grid-cols-1 md:grid-cols-2 gap-4">
+<div class="flex flex-col gap-2">
+<p class="text-xs font-ibm-plex-sans-thai leading-6 text-slate-500 dark:text-slate-500">
+                        © 2024 The Fluid Authority. Data sourced from PTT &amp; Bangchak.
+                    </p>
+</div>
+<div class="flex flex-wrap md:justify-end gap-6">
+<a class="text-xs font-ibm-plex-sans-thai text-slate-500 dark:text-slate-500 hover:text-blue-600 dark:hover:text-blue-300 transition-opacity" href="#">PTT Station</a>
+<a class="text-xs font-ibm-plex-sans-thai text-slate-500 dark:text-slate-500 hover:text-blue-600 dark:hover:text-blue-300 transition-opacity" href="#">Bangchak Corporation</a>
+<a class="text-xs font-ibm-plex-sans-thai text-slate-500 dark:text-slate-500 hover:text-blue-600 dark:hover:text-blue-300 transition-opacity" href="#">Terms of Service</a>
+<a class="text-xs font-ibm-plex-sans-thai text-slate-500 dark:text-slate-500 hover:text-blue-600 dark:hover:text-blue-300 transition-opacity" href="#">Privacy Policy</a>
+</div>
+</div>
+</footer>
+</main>
+</body></html>

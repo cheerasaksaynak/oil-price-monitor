@@ -1,0 +1,492 @@
+<!DOCTYPE html>
+
+<html lang="th"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>The Fluid Authority - Daily Thai Oil Price Dashboard</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700;800;900&amp;family=Inter:wght@400;500;600;700&amp;family=IBM+Plex+Sans+Thai:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "tertiary": "#513b00",
+                        "surface": "#f8f9fa",
+                        "primary-fixed": "#d6e3ff",
+                        "surface-container-lowest": "#ffffff",
+                        "tertiary-fixed-dim": "#fabd00",
+                        "inverse-primary": "#a9c7ff",
+                        "primary-container": "#0054a6",
+                        "on-tertiary": "#ffffff",
+                        "primary": "#003d7c",
+                        "surface-dim": "#d9dadb",
+                        "secondary-container": "#cfe6f2",
+                        "error": "#ba1a1a",
+                        "inverse-on-surface": "#f0f1f2",
+                        "surface-container-highest": "#e1e3e4",
+                        "on-surface-variant": "#424751",
+                        "on-secondary": "#ffffff",
+                        "on-primary-fixed-variant": "#00468c",
+                        "surface-bright": "#f8f9fa",
+                        "primary-fixed-dim": "#a9c7ff",
+                        "surface-variant": "#e1e3e4",
+                        "on-tertiary-container": "#ffc107",
+                        "on-tertiary-fixed-variant": "#5b4300",
+                        "outline": "#727783",
+                        "on-primary-fixed": "#001b3d",
+                        "on-secondary-fixed-variant": "#354a53",
+                        "surface-tint": "#185eb0",
+                        "surface-container-low": "#f3f4f5",
+                        "on-surface": "#191c1d",
+                        "error-container": "#ffdad6",
+                        "on-primary": "#ffffff",
+                        "outline-variant": "#c2c6d3",
+                        "surface-container": "#edeeef",
+                        "background": "#f8f9fa",
+                        "on-primary-container": "#afcbff",
+                        "tertiary-container": "#6d5100",
+                        "secondary-fixed-dim": "#b4cad6",
+                        "secondary": "#4c616c",
+                        "inverse-surface": "#2e3132",
+                        "on-error": "#ffffff",
+                        "on-error-container": "#93000a",
+                        "on-background": "#191c1d",
+                        "on-tertiary-fixed": "#261a00",
+                        "secondary-fixed": "#cfe6f2",
+                        "tertiary-fixed": "#ffdf9e",
+                        "on-secondary-container": "#526772",
+                        "surface-container-high": "#e7e8e9",
+                        "on-secondary-fixed": "#071e27"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.125rem",
+                        "lg": "0.25rem",
+                        "xl": "0.5rem",
+                        "full": "0.75rem"
+                    },
+                    "fontFamily": {
+                        "be-vietnam": ["Be Vietnam Pro", "sans-serif"],
+                        "inter": ["Inter", "sans-serif"],
+                        "ibm-plex-sans-thai": ["IBM Plex Sans Thai", "sans-serif"]
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+            vertical-align: middle;
+        }
+        body {
+            font-family: 'Inter', 'IBM Plex Sans Thai', sans-serif;
+            background-color: #f8f9fa;
+        }
+        .editorial-hero-gradient {
+            background: linear-gradient(135deg, #003d7c 0%, #0054a6 100%);
+        }
+    </style>
+</head>
+<body class="bg-surface text-on-surface">
+<!-- TopNavBar -->
+<header class="fixed top-0 w-full z-50 bg-white/80 dark:bg-slate-900/80 backdrop-blur-md shadow-sm dark:shadow-none flex items-center justify-between px-6 py-3 w-full">
+<div class="flex items-center gap-8">
+<span class="text-xl font-bold tracking-tighter text-blue-900 dark:text-blue-400 font-be-vietnam">The Fluid Authority</span>
+<div class="hidden md:flex gap-6 items-center">
+<a class="font-be-vietnam text-sm tracking-tight text-blue-900 dark:text-blue-400 font-bold border-b-2 border-blue-900 py-1" href="#">Dashboard</a>
+<a class="font-be-vietnam text-sm tracking-tight text-slate-500 dark:text-slate-400 hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors px-2 py-1 rounded" href="#">Price History</a>
+<a class="font-be-vietnam text-sm tracking-tight text-slate-500 dark:text-slate-400 hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors px-2 py-1 rounded" href="#">Trends</a>
+</div>
+</div>
+<div class="flex items-center gap-4">
+<div class="flex items-center bg-slate-100 dark:bg-slate-800 px-3 py-1.5 rounded-full">
+<span class="material-symbols-outlined text-slate-400 text-lg">search</span>
+<input class="bg-transparent border-none focus:ring-0 text-sm font-be-vietnam ml-2 text-on-surface w-32 md:w-48" placeholder="Search fuel types..." type="text"/>
+</div>
+<div class="flex gap-2">
+<button class="p-2 text-slate-500 hover:bg-slate-100 rounded-full transition-colors">
+<span class="material-symbols-outlined">calendar_today</span>
+</button>
+<button class="p-2 text-slate-500 hover:bg-slate-100 rounded-full transition-colors">
+<span class="material-symbols-outlined">schedule</span>
+</button>
+</div>
+</div>
+</header>
+<!-- SideNavBar -->
+<aside class="hidden lg:flex h-screen w-64 fixed left-0 top-0 bg-slate-100 dark:bg-slate-900 flex-col p-4 gap-2 pt-20 z-40">
+<div class="mb-8 px-4">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-full bg-primary-fixed flex items-center justify-center overflow-hidden">
+<img alt="User Profile" class="w-full h-full object-cover" data-alt="professional corporate headshot of a mature analyst with a neutral expression against a clean studio background" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCUAoe5U8Bb08QgiOCI-HmzuvzKNyOpihtZEeS1QDfyd2ZwN_t2BzVUiGBvS1AqNJMZVGPntur4sNUNHUkIdkdFIGXzmHLTdoEUlwmw_W1zwFH5MtlT9DISKMYozFL6ZqwfX1KS0mlMAglYmVdvLBe1Xw2z2SpdsTMkAcXOgpWSfClgnnMCFjVmbGE5EjLJiMlND8k_fPMC0ELtu4keO8pP-gbPlG51DRvRF_Mu92Pimaf3_yRff0ShDL0wGMsNIX-8iJY2G3ciCYHL"/>
+</div>
+<div>
+<h4 class="text-blue-900 dark:text-blue-400 font-be-vietnam-pro font-bold text-sm">Editorial Analyst</h4>
+<p class="text-xs text-slate-500">The Fluid Authority</p>
+</div>
+</div>
+</div>
+<nav class="flex flex-col gap-1">
+<a class="flex items-center gap-3 px-4 py-3 bg-white dark:bg-slate-800 text-blue-900 dark:text-blue-300 font-semibold rounded-lg shadow-sm transition-all duration-300" href="#">
+<span class="material-symbols-outlined" data-icon="dashboard">dashboard</span>
+<span class="font-be-vietnam-pro">Dashboard</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-slate-600 dark:text-slate-400 hover:text-blue-800 hover:bg-slate-200 dark:hover:bg-slate-800 rounded-lg transition-all duration-300" href="#">
+<span class="material-symbols-outlined" data-icon="history">history</span>
+<span class="font-be-vietnam-pro">Price History</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-slate-600 dark:text-slate-400 hover:text-blue-800 hover:bg-slate-200 dark:hover:bg-slate-800 rounded-lg transition-all duration-300" href="#">
+<span class="material-symbols-outlined" data-icon="trending_up">trending_up</span>
+<span class="font-be-vietnam-pro">Trends</span>
+</a>
+</nav>
+</aside>
+<!-- Main Content Area -->
+<main class="lg:ml-64 pt-20 px-6 pb-12">
+<div class="max-w-7xl mx-auto space-y-8">
+<!-- Hero Header Section -->
+<section class="grid grid-cols-1 md:grid-cols-3 gap-6">
+<div class="md:col-span-2 editorial-hero-gradient rounded-xl p-8 text-white relative overflow-hidden flex flex-col justify-between min-h-[320px]">
+<div class="relative z-10">
+<div class="flex items-center gap-2 mb-2">
+<span class="text-sm font-medium tracking-widest uppercase opacity-80">สถานะราคาน้ำมันประจำวัน</span>
+<span class="bg-white/20 px-2 py-0.5 rounded text-[10px] backdrop-blur-sm">LIVE UPDATES</span>
+</div>
+<h1 class="text-5xl md:text-7xl font-bold font-be-vietnam tracking-tighter leading-none mb-4">
+                            ราคาน้ำมันวันนี้
+                        </h1>
+<p class="text-lg font-ibm-plex-sans-thai opacity-90 max-w-md leading-relaxed">
+                            วิเคราะห์เจาะลึกความเคลื่อนไหวตลาดน้ำมันไทย ประจำวันที่ 24 พฤษภาคม 2567
+                        </p>
+</div>
+<div class="relative z-10 flex items-end justify-between">
+<div>
+<p class="text-sm font-medium opacity-70">อัพเดทล่าสุดเมื่อ 05:00 น.</p>
+<div class="flex gap-4 mt-2">
+<div class="flex flex-col">
+<span class="text-xs uppercase opacity-60">PTT</span>
+<span class="font-bold">เสถียร</span>
+</div>
+<div class="flex flex-col border-l border-white/20 pl-4">
+<span class="text-xs uppercase opacity-60">Bangchak</span>
+<span class="font-bold">เสถียร</span>
+</div>
+</div>
+</div>
+<div class="hidden sm:block">
+<button class="bg-white text-primary px-6 py-3 rounded-lg font-bold font-be-vietnam flex items-center gap-2 hover:bg-surface transition-colors shadow-lg">
+<span class="material-symbols-outlined text-lg">download</span>
+                                FULL REPORT
+                            </button>
+</div>
+</div>
+<!-- Abstract visual element -->
+<div class="absolute top-0 right-0 w-64 h-64 bg-white/10 rounded-full blur-3xl -mr-20 -mt-20"></div>
+<div class="absolute bottom-0 right-0 w-48 h-48 bg-primary-container/30 rounded-full blur-2xl -mr-10 -mb-10"></div>
+</div>
+<!-- Top Price Changes Card -->
+<div class="bg-surface-container-lowest rounded-xl p-6 flex flex-col">
+<h3 class="text-lg font-bold font-be-vietnam-pro text-primary mb-4 flex items-center gap-2">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">analytics</span>
+                        Top Price Changes
+                    </h3>
+<div class="space-y-4 flex-grow">
+<div class="flex items-center justify-between p-3 bg-surface-container-low rounded-lg">
+<div class="flex items-center gap-3">
+<span class="w-1.5 h-6 bg-error rounded-full"></span>
+<div>
+<p class="text-xs font-bold text-slate-500">DIESEL B7</p>
+<p class="font-bold text-primary">32.94 ฿</p>
+</div>
+</div>
+<div class="text-right">
+<p class="text-error font-bold flex items-center justify-end text-sm">
+                                    +0.50 <span class="material-symbols-outlined text-sm">trending_up</span>
+</p>
+<p class="text-[10px] text-slate-400">เมื่อ 2 วันที่แล้ว</p>
+</div>
+</div>
+<div class="flex items-center justify-between p-3 bg-surface-container-low rounded-lg">
+<div class="flex items-center gap-3">
+<span class="w-1.5 h-6 bg-on-tertiary-container rounded-full"></span>
+<div>
+<p class="text-xs font-bold text-slate-500">GASOHOL 95</p>
+<p class="font-bold text-primary">37.85 ฿</p>
+</div>
+</div>
+<div class="text-right">
+<p class="text-slate-400 font-bold flex items-center justify-end text-sm">
+                                    0.00 <span class="material-symbols-outlined text-sm">remove</span>
+</p>
+<p class="text-[10px] text-slate-400">วันนี้</p>
+</div>
+</div>
+<div class="flex items-center justify-between p-3 bg-surface-container-low rounded-lg">
+<div class="flex items-center gap-3">
+<span class="w-1.5 h-6 bg-primary-container rounded-full"></span>
+<div>
+<p class="text-xs font-bold text-slate-500">E20</p>
+<p class="font-bold text-primary">35.74 ฿</p>
+</div>
+</div>
+<div class="text-right">
+<p class="text-slate-400 font-bold flex items-center justify-end text-sm">
+                                    0.00 <span class="material-symbols-outlined text-sm">remove</span>
+</p>
+<p class="text-[10px] text-slate-400">วันนี้</p>
+</div>
+</div>
+</div>
+<button class="mt-4 w-full text-center text-xs font-bold text-primary hover:underline">VIEW ALL HISTORICAL DATA</button>
+</div>
+</section>
+<!-- Fuel Price Bento Grid -->
+<section class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4">
+<!-- Gasohol 95 -->
+<div class="bg-surface-container-lowest p-5 rounded-xl transition-all hover:translate-y-[-4px] hover:shadow-xl duration-300">
+<div class="flex items-center justify-between mb-4">
+<span class="bg-tertiary-fixed text-on-tertiary-fixed-variant px-2 py-0.5 rounded-full text-[10px] font-bold tracking-tight">GASOHOL 95</span>
+<span class="material-symbols-outlined text-slate-300 text-lg">local_gas_station</span>
+</div>
+<div class="flex flex-col gap-1">
+<span class="text-3xl font-bold font-be-vietnam text-primary">37.85</span>
+<div class="flex items-center gap-1">
+<span class="text-xs font-medium text-slate-400">THB/L</span>
+<span class="text-[10px] font-bold text-slate-400 ml-auto flex items-center">
+<span class="material-symbols-outlined text-[12px] mr-0.5">horizontal_rule</span> 0.00
+                            </span>
+</div>
+</div>
+</div>
+<!-- Gasohol 91 -->
+<div class="bg-surface-container-lowest p-5 rounded-xl transition-all hover:translate-y-[-4px] hover:shadow-xl duration-300">
+<div class="flex items-center justify-between mb-4">
+<span class="bg-slate-200 text-slate-700 px-2 py-0.5 rounded-full text-[10px] font-bold tracking-tight">GASOHOL 91</span>
+<span class="material-symbols-outlined text-slate-300 text-lg">local_gas_station</span>
+</div>
+<div class="flex flex-col gap-1">
+<span class="text-3xl font-bold font-be-vietnam text-primary">37.48</span>
+<div class="flex items-center gap-1">
+<span class="text-xs font-medium text-slate-400">THB/L</span>
+<span class="text-[10px] font-bold text-slate-400 ml-auto flex items-center">
+<span class="material-symbols-outlined text-[12px] mr-0.5">horizontal_rule</span> 0.00
+                            </span>
+</div>
+</div>
+</div>
+<!-- E20 -->
+<div class="bg-surface-container-lowest p-5 rounded-xl transition-all hover:translate-y-[-4px] hover:shadow-xl duration-300 border-2 border-transparent hover:border-on-tertiary-container/20">
+<div class="flex items-center justify-between mb-4">
+<span class="bg-on-tertiary-container text-tertiary-container px-2 py-0.5 rounded-full text-[10px] font-bold tracking-tight">E20</span>
+<span class="material-symbols-outlined text-slate-300 text-lg">eco</span>
+</div>
+<div class="flex flex-col gap-1">
+<span class="text-3xl font-bold font-be-vietnam text-primary">35.74</span>
+<div class="flex items-center gap-1">
+<span class="text-xs font-medium text-slate-400">THB/L</span>
+<span class="text-[10px] font-bold text-slate-400 ml-auto flex items-center">
+<span class="material-symbols-outlined text-[12px] mr-0.5">horizontal_rule</span> 0.00
+                            </span>
+</div>
+</div>
+</div>
+<!-- Diesel B7 -->
+<div class="bg-surface-container-lowest p-5 rounded-xl transition-all hover:translate-y-[-4px] hover:shadow-xl duration-300 bg-error/5">
+<div class="flex items-center justify-between mb-4">
+<span class="bg-error text-on-error px-2 py-0.5 rounded-full text-[10px] font-bold tracking-tight">DIESEL B7</span>
+<span class="material-symbols-outlined text-error/30 text-lg">fire_truck</span>
+</div>
+<div class="flex flex-col gap-1">
+<span class="text-3xl font-bold font-be-vietnam text-primary">32.94</span>
+<div class="flex items-center gap-1">
+<span class="text-xs font-medium text-slate-400">THB/L</span>
+<span class="text-[10px] font-bold text-error ml-auto flex items-center">
+<span class="material-symbols-outlined text-[12px] mr-0.5">arrow_upward</span> 0.50
+                            </span>
+</div>
+</div>
+</div>
+<!-- E85 -->
+<div class="bg-surface-container-lowest p-5 rounded-xl transition-all hover:translate-y-[-4px] hover:shadow-xl duration-300">
+<div class="flex items-center justify-between mb-4">
+<span class="bg-secondary-container text-on-secondary-container px-2 py-0.5 rounded-full text-[10px] font-bold tracking-tight">E85</span>
+<span class="material-symbols-outlined text-slate-300 text-lg">leaf_spark</span>
+</div>
+<div class="flex flex-col gap-1">
+<span class="text-3xl font-bold font-be-vietnam text-primary">35.49</span>
+<div class="flex items-center gap-1">
+<span class="text-xs font-medium text-slate-400">THB/L</span>
+<span class="text-[10px] font-bold text-slate-400 ml-auto flex items-center">
+<span class="material-symbols-outlined text-[12px] mr-0.5">horizontal_rule</span> 0.00
+                            </span>
+</div>
+</div>
+</div>
+</section>
+<!-- Chart Section -->
+<section class="bg-surface-container-lowest rounded-xl p-8">
+<div class="flex flex-col md:flex-row md:items-center justify-between gap-6 mb-8">
+<div>
+<h2 class="text-2xl font-bold font-be-vietnam tracking-tight text-primary">กราฟเปรียบเทียบแนวโน้ม</h2>
+<p class="text-slate-500 text-sm font-ibm-plex-sans-thai mt-1">Price Trends &amp; Comparative Analysis</p>
+</div>
+<div class="flex items-center gap-2 p-1 bg-surface-container rounded-lg self-start">
+<button class="px-4 py-1.5 text-xs font-bold font-be-vietnam bg-white text-primary rounded-md shadow-sm">DAILY</button>
+<button class="px-4 py-1.5 text-xs font-bold font-be-vietnam text-slate-500 hover:text-primary transition-colors">MONTHLY</button>
+<button class="px-4 py-1.5 text-xs font-bold font-be-vietnam text-slate-500 hover:text-primary transition-colors">QUARTERLY</button>
+</div>
+</div>
+<!-- Abstract Chart Representation -->
+<div class="relative h-[400px] w-full bg-slate-50/50 rounded-lg overflow-hidden border border-slate-100/50">
+<div class="absolute inset-0 flex items-end px-12 pb-12 gap-8">
+<!-- Simulated Chart Grid -->
+<div class="absolute inset-0 grid grid-rows-4 px-12 py-8">
+<div class="border-t border-slate-100"></div>
+<div class="border-t border-slate-100"></div>
+<div class="border-t border-slate-100"></div>
+<div class="border-t border-slate-100"></div>
+</div>
+<!-- Chart Lines (Simulated with SVGs) -->
+<svg class="absolute inset-0 w-full h-full px-12 py-12 overflow-visible" preserveaspectratio="none">
+<path d="M 0 300 Q 150 280, 300 320 T 600 250 T 900 280 T 1200 200" fill="none" stroke="#003d7c" stroke-linecap="round" stroke-width="3"></path>
+<path d="M 0 350 Q 150 330, 300 370 T 600 300 T 900 330 T 1200 250" fill="none" opacity="0.5" stroke="#ba1a1a" stroke-dasharray="5 5" stroke-linecap="round" stroke-width="2"></path>
+<path d="M 0 250 Q 150 230, 300 270 T 600 200 T 900 230 T 1200 150" fill="none" opacity="0.5" stroke="#ffc107" stroke-linecap="round" stroke-width="2"></path>
+</svg>
+<!-- Legend Labels (Bottom) -->
+<div class="absolute bottom-4 left-12 right-12 flex justify-between text-[10px] font-bold text-slate-400 font-be-vietnam">
+<span>15 MAY</span>
+<span>16 MAY</span>
+<span>17 MAY</span>
+<span>18 MAY</span>
+<span>19 MAY</span>
+<span>20 MAY</span>
+<span>21 MAY</span>
+<span>22 MAY</span>
+<span>23 MAY</span>
+<span>TODAY</span>
+</div>
+</div>
+<!-- Floating Tooltip Simulation -->
+<div class="absolute top-1/3 left-2/3 -translate-x-1/2 -translate-y-1/2 bg-white shadow-2xl rounded-lg p-4 border border-slate-100 z-10 w-48 scale-100 hover:scale-105 transition-transform">
+<p class="text-[10px] font-bold text-slate-400 mb-2 font-be-vietnam">MAY 22, 2024</p>
+<div class="space-y-1">
+<div class="flex items-center justify-between">
+<span class="text-xs text-slate-600">Gasohol 95</span>
+<span class="text-xs font-bold text-primary">37.85 ฿</span>
+</div>
+<div class="flex items-center justify-between">
+<span class="text-xs text-slate-600">Diesel B7</span>
+<span class="text-xs font-bold text-error">32.94 ฿</span>
+</div>
+</div>
+</div>
+</div>
+<div class="mt-8 grid grid-cols-1 md:grid-cols-3 gap-6">
+<div class="p-4 bg-surface-container-low rounded-lg border-l-4 border-primary">
+<p class="text-[10px] font-bold text-slate-500 uppercase tracking-widest">Volatility Score</p>
+<p class="text-xl font-bold text-primary mt-1">Low <span class="text-sm font-normal text-slate-400 ml-2">±0.2%</span></p>
+</div>
+<div class="p-4 bg-surface-container-low rounded-lg border-l-4 border-error">
+<p class="text-[10px] font-bold text-slate-500 uppercase tracking-widest">Peak Price (30D)</p>
+<p class="text-xl font-bold text-primary mt-1">38.25 ฿ <span class="text-sm font-normal text-slate-400 ml-2">Gasohol 95</span></p>
+</div>
+<div class="p-4 bg-surface-container-low rounded-lg border-l-4 border-on-tertiary-container">
+<p class="text-[10px] font-bold text-slate-500 uppercase tracking-widest">Average Margin</p>
+<p class="text-xl font-bold text-primary mt-1">2.45 ฿ <span class="text-sm font-normal text-slate-400 ml-2">Global Index</span></p>
+</div>
+</div>
+</section>
+<!-- Bottom Comparisons & Insights -->
+<section class="grid grid-cols-1 md:grid-cols-2 gap-8">
+<!-- Detailed Table (Asymmetric Layout) -->
+<div class="space-y-6">
+<div class="flex items-center justify-between">
+<h3 class="text-xl font-bold font-be-vietnam-pro text-primary">ประวัติราคา (5 วันล่าสุด)</h3>
+<a class="text-xs font-bold text-primary-container hover:underline" href="#">VIEW ALL</a>
+</div>
+<div class="bg-surface-container-lowest rounded-xl overflow-hidden shadow-sm">
+<table class="w-full text-left font-ibm-plex-sans-thai">
+<thead>
+<tr class="bg-surface-container-low text-[10px] font-bold uppercase text-slate-500 tracking-wider">
+<th class="px-6 py-4">วันที่</th>
+<th class="px-6 py-4">GAS 95</th>
+<th class="px-6 py-4">DIESEL B7</th>
+<th class="px-6 py-4">E20</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-slate-50">
+<tr class="hover:bg-slate-50 transition-colors">
+<td class="px-6 py-4 text-sm font-medium">23 พ.ค. 67</td>
+<td class="px-6 py-4 text-sm">37.85</td>
+<td class="px-6 py-4 text-sm">32.94</td>
+<td class="px-6 py-4 text-sm">35.74</td>
+</tr>
+<tr class="hover:bg-slate-50 transition-colors">
+<td class="px-6 py-4 text-sm font-medium">22 พ.ค. 67</td>
+<td class="px-6 py-4 text-sm text-error font-bold">37.85 (+0.4)</td>
+<td class="px-6 py-4 text-sm text-error font-bold">32.94 (+0.5)</td>
+<td class="px-6 py-4 text-sm">35.74</td>
+</tr>
+<tr class="hover:bg-slate-50 transition-colors">
+<td class="px-6 py-4 text-sm font-medium">21 พ.ค. 67</td>
+<td class="px-6 py-4 text-sm">37.45</td>
+<td class="px-6 py-4 text-sm">32.44</td>
+<td class="px-6 py-4 text-sm">35.74</td>
+</tr>
+<tr class="hover:bg-slate-50 transition-colors">
+<td class="px-6 py-4 text-sm font-medium">20 พ.ค. 67</td>
+<td class="px-6 py-4 text-sm">37.45</td>
+<td class="px-6 py-4 text-sm">32.44</td>
+<td class="px-6 py-4 text-sm">35.74</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<!-- Analysis/Insight Card -->
+<div class="bg-surface-container-low rounded-xl p-8 flex flex-col justify-between">
+<div>
+<span class="text-primary font-bold text-xs uppercase tracking-widest block mb-4">Market Insight</span>
+<h3 class="text-3xl font-bold font-be-vietnam-pro text-primary mb-6 leading-tight">การปรับราคาน้ำมันดีเซลส่งผลต่อภาคขนส่งอย่างไร?</h3>
+<p class="text-on-surface-variant font-ibm-plex-sans-thai leading-relaxed">
+                            จากการปรับขึ้นราคาดีเซล B7 เมื่อ 2 วันที่ผ่านมา (+0.50 บาท) พบว่าต้นทุนการขนส่งเพิ่มขึ้นเฉลี่ย 1.2% สำหรับผู้ประกอบการขนาดกลาง แนะนำให้ติดตามสถานการณ์ราคาน้ำมันดิบในตลาดโลกอย่างใกล้ชิด
+                        </p>
+</div>
+<div class="mt-12 flex items-center gap-4">
+<div class="flex -space-x-3">
+<img alt="Analyst 1" class="w-10 h-10 rounded-full border-2 border-white object-cover" data-alt="portrait of a focused business analyst with glasses looking thoughtfully in a bright modern office" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAr1MnnlKWX4MFT6R4u3pU8A2_ysSzcMBvmU1fvFP5d5RC8biq1qZyRQshVAHIjh-0y9OzZTZbOCJWuXXN1k0kJw-r57hRxT03yIVHqM6vcjgZjquOZjuI4xB9Rh6n9AbmhECHhD5lNPt5bOY-V6vxznvi7pBnCSz4qcYwnuaI_z4h4vsmj44GtM8KsxWQdceGMPP_IA3ZImpqVAgChBqv73FLyQst6RPNv7iZV3uUBG_hQtwbs6daweCU2yZVjYsy8UrvbQ701yx-H"/>
+<img alt="Analyst 2" class="w-10 h-10 rounded-full border-2 border-white object-cover" data-alt="portrait of a smiling female financial expert in a professional blazer with a blurred city skyline background" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCUMAqQglAks6CbELQ79C1w1mzMCMe1hVKTTxyjRne_--vOdwA8_nx1ghj4VyjNzA5ypDlSzsYA-nyWT40W5dLaG4T0BagwuEwYEyIP2SMlAKnwHq0HmgDr4bjQymaEZfOIvY05Tdz1gPlAOM1HH_YjoIJI_MVzLNfyxiJA_HNhSdvWil4B9Df_ucCLCrmhrko3x0i2aBK5Zs9OPaEqT98iS0e-mVA5wIyoNa6ig481mJ4atUy_LheOyGGuXlWDXol3gtayrwa7Qdbi"/>
+</div>
+<p class="text-xs font-bold text-primary font-be-vietnam">Read by 1,240+ Professionals</p>
+</div>
+</div>
+</section>
+</div>
+</main>
+<!-- Footer -->
+<footer class="w-full mt-auto py-8 bg-slate-100 dark:bg-slate-950">
+<div class="max-w-7xl mx-auto px-8 grid grid-cols-1 md:grid-cols-2 gap-4">
+<div class="flex flex-col gap-2">
+<p class="text-xs font-ibm-plex-sans-thai leading-6 text-slate-500 dark:text-slate-500">
+                    © 2024 The Fluid Authority. Data sourced from PTT &amp; Bangchak.
+                </p>
+<div class="flex gap-4">
+<a class="text-xs font-ibm-plex-sans-thai text-slate-500 hover:text-blue-600 dark:hover:text-blue-300 transition-opacity" href="#">PTT Station</a>
+<a class="text-xs font-ibm-plex-sans-thai text-slate-500 hover:text-blue-600 dark:hover:text-blue-300 transition-opacity" href="#">Bangchak Corporation</a>
+</div>
+</div>
+<div class="flex md:justify-end gap-6 items-center">
+<a class="text-xs font-ibm-plex-sans-thai text-slate-500 hover:text-blue-600 transition-opacity underline text-blue-800" href="#">Terms of Service</a>
+<a class="text-xs font-ibm-plex-sans-thai text-slate-500 hover:text-blue-600 transition-opacity" href="#">Privacy Policy</a>
+</div>
+</div>
+</footer>
+<!-- FAB for Contextual Action (Price Alert) -->
+<button class="fixed bottom-8 right-8 w-14 h-14 bg-primary text-white rounded-full shadow-2xl flex items-center justify-center hover:scale-110 transition-transform active:scale-95 z-50">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">notifications_active</span>
+</button>
+</body></html>
