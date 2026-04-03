@@ -1,15 +1,13 @@
 'use client';
 
 import { useEffect } from 'react';
-import { useRouter } from 'next/navigation';
 
 export default function RootPage() {
-  const router = useRouter();
-
   useEffect(() => {
     const lang = navigator.language.startsWith('en') ? 'en' : 'th';
-    router.replace(`/${lang}`);
-  }, [router]);
+    const base = window.location.pathname.replace(/\/$/, '');
+    window.location.replace(`${base}/${lang}/`);
+  }, []);
 
-  return null;
+  return <p style={{ fontFamily: 'sans-serif', padding: '2rem' }}>Redirecting…</p>;
 }
